@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,12 +38,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Lab3Screen(modifier: Modifier = Modifier) {
     var nText by remember { mutableStateOf("") }
+    var resultText by remember { mutableStateOf("Результат:") }
     Column(modifier = modifier.padding(16.dp)) {
         Text(text = "Введите натуральное число n:")
         OutlinedTextField(
             value = nText,
             onValueChange = { nText = it },
             label = { Text("n") }
+        )
+        Button(
+            onClick = {
+                resultText = "n = $nText"
+                 },
+            modifier = Modifier.padding(top = 8.dp)
+                   ) {
+            Text("Вычислить")
+        }
+
+        Text(
+            text = resultText,
+            modifier = Modifier.padding(top = 16.dp)
         )
     }
 }

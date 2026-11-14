@@ -1,6 +1,7 @@
 package com.example.a4
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.a4.ui.theme._4Theme
 import androidx.compose.foundation.layout.Column
@@ -20,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Lab3Screen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     var nText by remember { mutableStateOf("") }
     var resultText by remember { mutableStateOf("Результат:") }
     Column(modifier = modifier.padding(16.dp)) {
@@ -48,18 +52,23 @@ fun Lab3Screen(modifier: Modifier = Modifier) {
         )
         Button(
             onClick = {
-                resultText = "n = $nText"
-                val n = nText.toInt()
-                var sumSin = 0.0   // sin1 + sin2 + ... + sin k
-                var result = 0.0   // итоговая сумма дробей
+                val n = nText.toIntOrNull()
 
-                for (k in 1..n) {
-                    sumSin = sumSin + Math.sin(k.toDouble())
-                    result = result + 1 / sumSin
+                if (n == null || n <= 0 || n > 1000000) {
+                    Toast.makeText(context, "Введите натуральное n (от 1 до 1000000)", Toast.LENGTH_SHORT).show()
+                } else {
+                    var sumSin = 0.0   // sin1 + sin2 + ... + sin k
+                    var result = 0.0   // итоговая сумма дробей
+
+                    for (k in 1..n) {
+                        sumSin = sumSin + Math.sin(k.toDouble())
+                        result = result + 1 / sumSin
+                    }
+
+                    resultText = "Результат: $result"
                 }
+            },
 
-                resultText = "Результат: $result"
-                 },
             modifier = Modifier.padding(top = 8.dp)
                    ) {
             Text("Вычислить")

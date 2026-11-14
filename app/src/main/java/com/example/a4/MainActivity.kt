@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.a4.ui.theme._4Theme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +22,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             _4Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                    Lab3Screen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
+}   // <- класс закончился здесь
+
+@Composable
+fun Lab3Screen(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(16.dp)) {
+        Text(text = "Введите натуральное число n:")
+    }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun Lab3ScreenPreview() {
+    _4Theme {
+        Lab3Screen()
+    }
+}

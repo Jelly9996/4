@@ -49,6 +49,16 @@ fun Lab3Screen(modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 resultText = "n = $nText"
+                val n = nText.toInt()
+                var sumSin = 0.0   // sin1 + sin2 + ... + sin k
+                var result = 0.0   // итоговая сумма дробей
+
+                for (k in 1..n) {
+                    sumSin = sumSin + Math.sin(k.toDouble())
+                    result = result + 1 / sumSin
+                }
+
+                resultText = "Результат: $result"
                  },
             modifier = Modifier.padding(top = 8.dp)
                    ) {
